@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For Shivank 💘</title>
+
+<style>
+body {
+  margin: 0;
+  height: 100vh;
+  background: linear-gradient(135deg, #ff758c, #ff7eb3);
+  font-family: 'Arial', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  color: white;
+}
+
+.card {
+  background: rgba(255,255,255,0.18);
+  padding: 40px;
+  border-radius: 22px;
+  text-align: center;
+  width: 330px;
+  backdrop-filter: blur(12px);
+}
+
+input {
+  padding: 10px;
+  border-radius: 20px;
+  border: none;
+  width: 80%;
+  text-align: center;
+}
+
+button {
+  margin-top: 20px;
+  padding: 12px 28px;
+  border-radius: 30px;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+#yes {
+  background: #ff3b6f;
+  color: white;
+}
+
+#no {
+  background: white;
+  color: #ff3b6f;
+  position: absolute;
+}
+
+.heart {
+  position: fixed;
+  top: -10px;
+  color: rgba(255,255,255,0.8);
+  animation: fall 5s linear infinite;
+}
+
+@keyframes fall {
+  to {
+    transform: translateY(110vh);
+    opacity: 0;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<audio id="music" loop>
+  <source src="https://assets.mixkit.co/music/preview/mixkit-love-romantic-hopeful-558.mp3">
+</audio>
+
+<div class="card" id="screen">
+  <h2>🔐 Enter Password</h2>
+  <p>(Hint: your name)</p>
+  <input id="pass" placeholder="Password">
+  <br>
+  <button onclick="unlock()">Enter</button>
+</div>
+
+<script>
+function unlock() {
+  const p = document.getElementById("pass").value.toLowerCase();
+  if (p === "shivank") {
+    document.getElementById("music").play();
+    showTyping();
+  } else {
+    alert("Wrong password 😌");
+  }
+}
+
+function showTyping() {
+  const text = "Shivank 💙\nWill you be my Valentine?";
+  let i = 0;
+  document.getElementById("screen").innerHTML = "<h2 id='type'></h2>";
+
+  const interval = setInterval(() => {
+    document.getElementById("type").innerText = text.slice(0, i);
+    i++;
+    if (i > text.length) {
+      clearInterval(interval);
+      showButtons();
+    }
+  }, 80);
+}
+
+function showButtons() {
+  document.getElementById("screen").innerHTML += `
+    <br><br>
+    <button id="yes" onclick="yes()">Yes 💘</button>
+    <button id="no" onmouseover="moveNo()">No 🙈</button>
+  `;
+}
+
+function moveNo() {
+  const no = document.getElementById("no");
+  no.style.left = Math.random() * (window.innerWidth - 100) + "px";
+  no.style.top = Math.random() * (window.innerHeight - 50) + "px";
+}
+
+function yes() {
+  document.body.innerHTML = `
+    <div style="
+      height:100vh;
+      width:100vw;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      background:linear-gradient(135deg,#ff9a9e,#fad0c4);
+      text-align:center;
+      font-family:Arial;
+      color:white;
+    ">
+      <div>
+        <h1>YAYYYY 🥹💖</h1>
+        <p style="font-size:1.4rem;">
+          You’re officially my Valentine, Shivank 💙<br><br>
+          14th is ours 🌹
+        </p>
+      </div>
+    </div>
+  `;
+}
+
+setInterval(() => {
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  heart.innerText = "💖";
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.animationDuration = (Math.random() * 3 + 3) + "s";
+  document.body.appendChild(heart);
+  setTimeout(() => heart.remove(), 5000);
+}, 300);
+</script>
+
+</body>
+</html>
